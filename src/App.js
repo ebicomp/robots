@@ -1,24 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
+import robots from "./card/robots";
+import { CardList } from "./card/card-list";
+import { Header } from "./card/header";
+import { useState } from "react";
 
 function App() {
+  const onSearchChange = (event) => {
+    const searchKey = event.target.value;
+    const filteredRobots = robots.filter((q) => q.name.includes(searchKey));
+    setRobotsState(filteredRobots);
+  };
+
+  const [robotsState, setRobotsState] = useState(robots);
+  const [searchFiled, setSearchField] = useState("");
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Header seachChange={onSearchChange} />
+      <CardList robots={robotsState} />;
+    </>
   );
 }
 
